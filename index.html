@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Password Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: #1f1f1f;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            display: none;
+        }
+        .container.active {
+            display: block;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+        input, button {
+            font-size: 16px;
+            padding: 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            width: calc(100% - 26px);
+            box-sizing: border-box;
+        }
+        button {
+            background: #0072ff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        input[type="text"], input[type="number"] {
+            background: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        nav {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            background: #0072ff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: #0056b3;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
+        a {
+            color: #00c6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" onclick="showPage('generator')">Home</a>
+        <a href="#" onclick="showPage('about')">About</a>
+        <a href="#" onclick="showPage('license')">License</a>
+    </nav>
+    <div id="generator" class="container active">
+        <h1>Universal Password Generator</h1>
+        <input type="number" id="length" placeholder="Password Length" min="8" max="20">
+        <button onclick="generatePassword()">Generate Password</button>
+        <br>
+        <input type="text" id="password" readonly>
+    </div>
+
+    <div id="about" class="container">
+        <h1>About This Tool</h1>
+        <p>Hi Guys! This is a Universal Password Generator I made with my programming skills and a bit of ChatGPT. Anyways, this is free to use.</p>
+        <p>Don't forget to subscribe to <a href="https://www.youtube.com/@MidnightShadow93" target="_blank">MidnightShadow93</a> on YouTube!</p>
+    </div>
+
+    <div id="license" class="container">
+        <h1>GNU General Public License (GPL) v3.0</h1>
+        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+        <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+        <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">https://www.gnu.org/licenses/gpl-3.0.html</a>.</p>
+        <a href="#" onclick="showPage('generator')">Back to Home</a>
+    </div>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value || 12;
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            document.getElementById('password').value = password;
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Ensure the password is not automatically generated
+        // document.getElementById('length').addEventListener('input', generatePassword);
+        // document.getElementById('length').addEventListener('change', generatePassword);
+    </script>
+</body>
+</html>
